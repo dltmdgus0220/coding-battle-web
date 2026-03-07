@@ -21,6 +21,7 @@ build/
 .env
 .env.*
 *.local
+judge0.conf
 !.env.example
 
 # Coverage
