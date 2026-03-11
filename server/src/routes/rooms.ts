@@ -23,3 +23,30 @@ router.get('/', authMiddleware, async (_req: AuthRequest, res: Response): Promis
     res.status(500).json({ message: '서버 오류가 발생했습니다.' });
   }
 });
+
+// 방 생성
+router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { name } = req.body;
+  if (!name) {
+    res.status(400).json({ message: '방 이름을 입력해주세요.' });
+    return;
+  }
+  try {
+    // 랜덤 문제 선택
+    const problemResult = await pool.query('SELECT id FROM problems ORDER BY RANDOM() LIMIT 1');
+    if (problemResult.rows.length === 0) {
+      res.status(500).json({ message: '문제가 없습니다.' });
+      return;
+    }
+    const problemId = problemResult.rows[0].id;
+    const result = await pool.query(
+      'INSERT INTO rooms (name, problem_id, player1_id) VALUES ($1, $2, $3) RETURNING *',
+      [name, problemId, req.userId]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('방 생성 오류:', err);
+    res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+  }
+});
+
