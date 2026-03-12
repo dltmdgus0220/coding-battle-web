@@ -40,3 +40,13 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
       res.status(409).json({ message: `게임 중인 방이 아닙니다. (현재 상태: ${room.status})` });
       return;
     }
+
+    // 테스트케이스 조회
+    const tcResult = await pool.query(
+      'SELECT input, expected_output FROM test_cases WHERE problem_id = $1',
+      [problem_id]
+    );
+    if (tcResult.rows.length === 0) {
+      res.status(500).json({ message: '테스트케이스가 없습니다.' }); // 500: 서버 내부 오류
+      return;
+    }
