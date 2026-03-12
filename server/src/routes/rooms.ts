@@ -50,3 +50,36 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
   }
 });
 
+// 방 입장
+router.post('/:id/join', authMiddleware, async (req: AuthRequest, res: Response): Promise<void> => {
+  const roomId = parseInt(String(req.params.id));
+  try {
+    const roomResult = await pool.query('SELECT * FROM rooms WHERE id = $1', [roomId]);
+    if (roomResult.rows.length === 0) {
+      res.status(404).json({ message: '방을 찾을 수 없습니다.' });
+      return;
+    }
+    const room = roomResult.rows[0];
+    if (room.status !== 'waiting') {
+      res.status(409).json({ message: '이미 게임이 시작된 방입니다.' });
+      return;
+    }
+    if (room.player1_id === req.userId) {
+      res.json({ room, message: '방에 재입장했습니다.' });
+      return;
+    }
+    if (room.player2_id) {
+      res.status(409).json({ message: '방이 가득 찼습니다.' });
+      return;
+    }
+    const updated = await pool.query(
+      'UPDATE rooms SET player2_id = $1 WHERE id = $2 RETURNING *',
+      [req.userId, roomId]
+    );
+    res.json(updated.rows[0]);
+  } catch (err) {
+    console.error('방 입장 오류:', err);
+    res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+  }
+});
+
