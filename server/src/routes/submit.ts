@@ -50,3 +50,51 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
       res.status(500).json({ message: '테스트케이스가 없습니다.' }); // 500: 서버 내부 오류
       return;
     }
+
+    // 즉시 응답 후 채점 (비동기)
+    res.json({ message: '제출 완료. 채점 중입니다.' });
+
+    // 비동기 채점
+    (async () => {
+      try {
+        const judgeResult = await judgeCode(code, tcResult.rows);
+        console.log(`[judge] user:${req.userId} result:${judgeResult.status} (${judgeResult.passedCases}/${judgeResult.totalCases})`);
+
+        await pool.query(
+          `INSERT INTO submissions (user_id, room_id, problem_id, code, language, judge_status, passed_cases, total_cases)
+           VALUES ($1, $2, $3, $4, 'python', $5, $6, $7)`,
+          [req.userId, room_id, problem_id, code, judgeResult.status, judgeResult.passedCases, judgeResult.totalCases]
+        );
+
+        const io = getIo(); // socket.io 서버 객체 가져오기
+        io.to(`room:${room_id}`).emit('room:opponent_submitted', {
+          userId: req.userId,
+          judgeStatus: judgeResult.status,
+        }); // room:opponent_submitted: 이벤트 이름, io.to().emit(): socket.io에서 특정 room에만 보내는 이벤트
+
+        const allSubs = await pool.query( 
+          'SELECT user_id FROM submissions WHERE room_id = $1', 
+          [room_id] 
+        ); 
+
+        const bothSubmitted =
+          allSubs.rows.some((s: { user_id: number }) => s.user_id === room.player1_id) &&
+          allSubs.rows.some((s: { user_id: number }) => s.user_id === room.player2_id);
+        // some: 배열 안에 조건을 만족하는 요소가 하나라도 있으면 true
+        if (bothSubmitted) { // 둘 다 제출했는지
+          await handleTimeUp(io, room_id);
+        }
+      } catch (err) {
+        console.error('[채점 오류]', err);
+      }
+    })();
+
+  } catch (err) {
+    console.error('[submit 오류]', err);
+    if (!res.headersSent) {
+      res.status(500).json({ message: '서버 오류가 발생했습니다.' });
+    }
+  }
+});
+
+export default router;
