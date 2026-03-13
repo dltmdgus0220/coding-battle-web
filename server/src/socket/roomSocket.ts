@@ -54,4 +54,15 @@ export function initRoomSocket(io: Server) {
         }
       }
     });
+
+    // 타이머 종료 처리 (클라이언트가 알림)
+    socket.on('room:time_up', async ({ roomId }: { roomId: number }) => {
+      await handleTimeUp(io, roomId);
+    });
+
+    socket.on('disconnect', () => {
+      console.log(`소켓 연결 해제: ${socket.id}`);
+    });
+  });
+}
 }
