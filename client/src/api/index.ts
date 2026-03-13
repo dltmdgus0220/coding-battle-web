@@ -5,3 +5,8 @@ const api = axios.create({
   withCredentials: true,
 });
 
+api.interceptors.request.use((config) => { // 모든 http 요청이 서버로 보내지기 전에 가로채서 콜백 함수들 실행. 여기서 콜백 함수 기능은 토큰을 자동으로 헤더에 추가해줌.
+  const token = localStorage.getItem('token'); // localStorage: 브라우저에 있는 영구저장소이므로 프론트엔드에서만 접근 가능.
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
