@@ -13,4 +13,16 @@ export function initRoomSocket(io: Server) {
       socket.data.username = username;
       socket.data.roomId = roomId;
 
+      // 방 정보 조회
+      const roomResult = await pool.query(`
+        SELECT r.*, u1.username AS player1_name, u2.username AS player2_name
+        FROM rooms r
+        LEFT JOIN users u1 ON r.player1_id = u1.id
+        LEFT JOIN users u2 ON r.player2_id = u2.id
+        WHERE r.id = $1
+      `, [roomId]);
+
+      if (roomResult.rows.length === 0) return; // ===: 엄격 비교 연산자. ex) 0 == "0": true, 0 === "0": false
+      const room = roomResult.rows[0];
+
 }
