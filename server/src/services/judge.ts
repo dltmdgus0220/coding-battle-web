@@ -3,3 +3,13 @@ import { writeFile, unlink } from 'fs/promises'; // 파일시스템을 다루는
 import path from 'path';
 import os from 'os';
 
+interface JudgeResult {
+  status: string;
+  passedCases: number;
+  totalCases: number;
+}
+
+interface TestCase {
+  input: string;
+  expected_output: string;
+}
