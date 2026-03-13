@@ -13,3 +13,29 @@ interface TestCase {
   input: string;
   expected_output: string;
 }
+
+function runPython(filePath: string, stdin: string, timeoutMs: number): Promise<string> {
+  return new Promise((resolve, reject) => { // 성공 시 resolve 반환. 실패 시 reject 반환
+    const child = execFile(
+      'python',
+      [filePath], // 터미널에 "python filepath"를 실행하는 것과 같음.
+      { timeout: timeoutMs }, // timeout은 execFile에 존재하는 옵션. timeoutMs가 되면 프로세스 강제종료.
+      (error, stdout, stderr) => { // error: 실행 중 에러 발생 여부, stdout: 프로그램의 정상 출력, stderr: 프로그램의 에러 출력
+        if (error) {
+          if (error.killed) { // 프로세스가 강제종료되었는지. 여기서 강제종료는 타임아웃밖에 없음.
+            reject(new Error('Time Limit Exceeded'));
+          } else {
+            reject(new Error(`Runtime Error: ${stderr || error.message}`));
+          }
+          return;
+        }
+        resolve(stdout);
+      }
+    );
+    if (child.stdin) { // 테스트 케이스 입력
+      child.stdin.write(stdin);
+      child.stdin.end();
+    }
+  });
+}
+
