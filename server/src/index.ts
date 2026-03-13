@@ -33,7 +33,7 @@ app.use('/api/matches', matchesRouter);
 initRoomSocket(io);
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
-  console.log(`서버 실행 중: http://localhost:${PORT}`);
+server.listen(PORT, () => { // listen: PORT 번호를 열고 클라이언트 요청을 기다림.
+  console.log(`서버 실행 중: http://localhost:${PORT}`); // 클라이언트가 해당 포트로 접속하면 log 출력
 });
 
