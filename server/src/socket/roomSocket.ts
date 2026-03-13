@@ -28,7 +28,7 @@ export function initRoomSocket(io: Server) {
       // 상대방에게 입장 알림
       socket.to(`room:${roomId}`).emit('room:player_joined', { username }); // 특정 room에 속한 소켓들에게 이벤트를 전송하는데 자기 자신은 제외. socket.to().emit(): 내부적으로 broadcast 동작. 그러나 broadcast는 룸을 지정못하기 때문에 저렇게 씀.
 
-      // 두 명이 모두 있으면 게임 시작 (이미 시작됐으면 현재 시작 시각 그대로 전달) 
+      // 두 명이 모두 있으면 게임 시작
       if (room.player1_id && room.player2_id) {
         if (room.status === 'in_progress') {
           // 이미 게임 중 → 재접속한 플레이어에게만 현재 상태 전달
@@ -38,4 +38,20 @@ export function initRoomSocket(io: Server) {
             player1: { id: room.player1_id, username: room.player1_name },
             player2: { id: room.player2_id, username: room.player2_name },
           });
+        } else {
+          // 처음 시작
+          const startedAt = new Date().toISOString();
+          await pool.query(
+            'UPDATE rooms SET status = $1, game_started_at = $2 WHERE id = $3',
+            ['in_progress', startedAt, roomId]
+          );
+          io.to(`room:${roomId}`).emit('room:game_start', {
+            problemId: room.problem_id,
+            serverTime: startedAt,
+            player1: { id: room.player1_id, username: room.player1_name },
+            player2: { id: room.player2_id, username: room.player2_name },
+          });
+        }
+      }
+    });
 }
