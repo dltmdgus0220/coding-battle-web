@@ -33,3 +33,18 @@ pre { font-family: 'Fira Code', monospace; }
 .error-msg { color: #eb4034; font-size: 14px; margin: 8px 0; }
 .loading { display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 18px; color: #aaa; }
 
+/* === 인증 페이지 === */
+.auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0f0f1a; }
+.auth-card { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 16px; padding: 48px 40px; width: 400px; }
+.auth-title { text-align: center; font-size: 28px; margin-bottom: 8px; }
+.auth-card h2 { text-align: center; font-size: 20px; margin-bottom: 24px; color: #aaa; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 14px; color: #aaa; margin-bottom: 6px; }
+.form-group input {
+  width: 100%; padding: 10px 14px; background: #0f0f1a; border: 1px solid #2a2a3e;
+  border-radius: 8px; color: #e0e0e0; font-size: 15px; outline: none;
+}
+.form-group input:focus { border-color: #5865f2; }
+.auth-card .btn-primary { width: 100%; margin-top: 8px; }
+.auth-link { text-align: center; margin-top: 16px; font-size: 14px; color: #aaa; }
+
