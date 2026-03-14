@@ -48,3 +48,24 @@ pre { font-family: 'Fira Code', monospace; }
 .auth-card .btn-primary { width: 100%; margin-top: 8px; }
 .auth-link { text-align: center; margin-top: 16px; font-size: 14px; color: #aaa; }
 
+/* === 로비 === */
+.lobby-container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.lobby-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #2a2a3e; }
+.lobby-header h1 { font-size: 24px; }
+.user-info { display: flex; align-items: center; gap: 12px; }
+.create-room-section { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+.create-room-section h2 { margin-bottom: 12px; }
+.create-room-form { display: flex; gap: 8px; }
+.create-room-form input {
+  flex: 1; padding: 10px 14px; background: #0f0f1a; border: 1px solid #2a2a3e;
+  border-radius: 8px; color: #e0e0e0; font-size: 15px; outline: none;
+}
+.create-room-form input:focus { border-color: #5865f2; }
+.rooms-section { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 12px; padding: 20px; }
+.rooms-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.no-rooms { color: #666; text-align: center; padding: 32px 0; }
+.room-card { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: #0f0f1a; border: 1px solid #2a2a3e; border-radius: 8px; margin-bottom: 8px; }
+.room-card:hover { border-color: #5865f2; }
+.room-name { font-weight: 600; display: block; }
+.room-players { font-size: 13px; color: #888; display: block; margin-top: 2px; }
+
