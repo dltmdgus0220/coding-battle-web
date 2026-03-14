@@ -22,3 +22,16 @@ export const getRooms = () => api.get('/rooms'); // 방 목록 조회
 export const createRoom = (data: { name: string }) => api.post('/rooms', data); // 방 생성
 export const joinRoom = (roomId: number) => api.post(`/rooms/${roomId}/join`); // 방 입장
 
+// 문제
+export const getProblem = (problemId: number) => api.get(`/problems/${problemId}`);
+
+// 제출
+export const submitCode = (data: { room_id: number; problem_id: number; code: string }) =>
+  api.post('/submit', data);
+
+// 매치 결과
+export const getMatch = (matchId: number) => api.get(`/matches/${matchId}`);
+export const getSubmissionCode = (matchId: number, userId: number) =>
+  api.get(`/matches/${matchId}/code/${userId}`);
+
+export default api;
