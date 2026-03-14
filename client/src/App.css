@@ -1,0 +1,7 @@
+/* === 글로벌 리셋 === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; background: #0f0f1a; color: #e0e0e0; min-height: 100vh; }
+a { color: #7c9ff5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+pre { font-family: 'Fira Code', monospace; }
+#root { max-width: none; margin: 0; padding: 0; text-align: left; }
