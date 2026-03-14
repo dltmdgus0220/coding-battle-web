@@ -103,3 +103,18 @@ pre { font-family: 'Fira Code', monospace; }
 .status-accepted { background: #1e3a2a; color: #3ba55c; }
 .status-wrong { background: #3a1e1e; color: #eb4034; }
 
+/* === 문제 패널 === */
+.problem-panel { padding: 20px; }
+.problem-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.problem-header h2 { font-size: 20px; }
+.difficulty { font-size: 12px; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.difficulty-easy { background: #1e3a2a; color: #3ba55c; }
+.difficulty-medium { background: #3a2e1e; color: #e67e22; }
+.difficulty-hard { background: #3a1e1e; color: #eb4034; }
+.problem-section { margin-bottom: 20px; }
+.problem-section h3 { font-size: 14px; color: #aaa; margin-bottom: 8px; border-bottom: 1px solid #2a2a3e; padding-bottom: 4px; }
+.problem-section p { font-size: 15px; line-height: 1.6; white-space: pre-wrap; }
+.sample-io { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sample-io h4 { font-size: 13px; color: #888; margin-bottom: 6px; }
+.sample-io pre { background: #0f0f1a; border: 1px solid #2a2a3e; border-radius: 6px; padding: 10px; font-size: 14px; }
+
