@@ -10,3 +10,14 @@ export function getSocket(): Socket {
   return socketInstance;
 } // socket이 있으면 안만들고 없으면 만듦. 앱 전체에서 하나의 socket 연결을 재사용하도록 관리 (Singleton 패턴)
 
+export function useSocket() {
+  const socketRef = useRef<Socket>(getSocket()); // useRef: 값을 저장하는 react 훅. 랜더링이 다시 되어도 값이 유지됨.
+
+  useEffect(() => {
+    return () => {
+      // 언마운트 시 이벤트 리스너는 각 컴포넌트에서 정리. cleanup.
+    };
+  }, []); // []: 컴포넌트 mount 시 한 번 실행
+
+  return socketRef.current;
+}
