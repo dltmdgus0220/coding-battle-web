@@ -10,3 +10,10 @@ api.interceptors.request.use((config) => { // 모든 http 요청이 서버로 �
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+
+// 인증
+export const register = (data: { username: string; email: string; password: string }) =>
+  api.post('/auth/register', data); // 회원가입 기능
+export const login = (data: { email: string; password: string }) =>
+  api.post('/auth/login', data); // 로그인 기능
+
