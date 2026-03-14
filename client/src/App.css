@@ -118,3 +118,18 @@ pre { font-family: 'Fira Code', monospace; }
 .sample-io h4 { font-size: 13px; color: #888; margin-bottom: 6px; }
 .sample-io pre { background: #0f0f1a; border: 1px solid #2a2a3e; border-radius: 6px; padding: 10px; font-size: 14px; }
 
+/* === 결과 페이지 === */
+.result-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.result-card { background: #1a1a2e; border: 1px solid #2a2a3e; border-radius: 16px; padding: 40px; width: 600px; text-align: center; }
+.result-banner { font-size: 36px; font-weight: 700; padding: 20px; border-radius: 12px; margin-bottom: 32px; }
+.result-banner.win { background: #1e3a2a; color: #3ba55c; }
+.result-banner.lose { background: #3a1e1e; color: #eb4034; }
+.result-banner.draw { background: #2a2a3e; color: #aaa; }
+.result-scores { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; }
+.result-player { flex: 1; background: #0f0f1a; border: 1px solid #2a2a3e; border-radius: 12px; padding: 20px; }
+.result-player-name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.result-status { font-size: 18px; margin-bottom: 8px; }
+.result-time { font-size: 13px; color: #888; }
+.result-vs { font-size: 20px; font-weight: 700; color: #666; }
+.result-actions { display: flex; flex-direction: column; gap: 10px; }
+
