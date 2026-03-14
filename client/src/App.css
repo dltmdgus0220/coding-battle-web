@@ -28,3 +28,8 @@ pre { font-family: 'Fira Code', monospace; }
 .btn-review:hover { background: #3a3a5c; }
 .btn-back { background: transparent; color: #aaa; border: none; cursor: pointer; font-size: 14px; padding: 8px 0; }
 .btn-back:hover { color: #fff; }
+
+/* === 공통 === */
+.error-msg { color: #eb4034; font-size: 14px; margin: 8px 0; }
+.loading { display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 18px; color: #aaa; }
+
