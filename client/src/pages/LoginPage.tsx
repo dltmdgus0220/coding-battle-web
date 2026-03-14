@@ -1,5 +1,5 @@
-import { useState, FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, FormEvent } from 'react'; // FormEvent: 폼에서 발생하는 이벤트 타입
+import { useNavigate, Link } from 'react-router-dom'; // Link: html에서의 <a href="/login">로그인</a> 랑 비슷한 역할인데 새로고침 없이 화면을 바꿔줌.
 import { login } from '../api';
 
 export default function LoginPage() {
