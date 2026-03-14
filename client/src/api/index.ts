@@ -17,3 +17,8 @@ export const register = (data: { username: string; email: string; password: stri
 export const login = (data: { email: string; password: string }) =>
   api.post('/auth/login', data); // 로그인 기능
 
+// 방
+export const getRooms = () => api.get('/rooms'); // 방 목록 조회
+export const createRoom = (data: { name: string }) => api.post('/rooms', data); // 방 생성
+export const joinRoom = (roomId: number) => api.post(`/rooms/${roomId}/join`); // 방 입장
+
