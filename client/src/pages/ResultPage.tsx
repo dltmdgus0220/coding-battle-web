@@ -37,3 +37,60 @@ function statusLabel(status: string): string {
   };
   return map[status] || status;
 }
+
+export default function ResultPage() {
+  const { matchId } = useParams<{ matchId: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as LocationState | null;
+
+  if (!state) {
+    navigate('/lobby');
+    return null;
+  }
+
+  const { result, userId, players } = state;
+  const myId = userId;
+  const myResult = result.p1.userId === myId ? result.p1 : result.p2;
+  const oppResult = result.p1.userId === myId ? result.p2 : result.p1;
+  const oppPlayer = players.player1?.id === myId ? players.player2 : players.player1;
+
+  const isWin = result.winnerId === myId;
+  const isDraw = result.winnerId === null;
+
+  return (
+    <div className="result-container">
+      <div className="result-card">
+        <div className={`result-banner ${isWin ? 'win' : isDraw ? 'draw' : 'lose'}`}>
+          {isWin ? '🏆 승리!' : isDraw ? '🤝 무승부' : '😢 패배'}
+        </div>
+
+        <div className="result-scores">
+          <div className="result-player my-result">
+            <div className="result-player-name">나</div>
+            <div className="result-status">{statusLabel(myResult.status)}</div>
+            <div className="result-time">제출 시각: {formatTime(myResult.submittedAt)}</div>
+          </div>
+          <div className="result-vs">VS</div>
+          <div className="result-player opp-result">
+            <div className="result-player-name">{oppPlayer?.username || '상대방'}</div>
+            <div className="result-status">{statusLabel(oppResult.status)}</div>
+            <div className="result-time">제출 시각: {formatTime(oppResult.submittedAt)}</div>
+          </div>
+        </div>
+
+        <div className="result-actions">
+          <button
+            onClick={() => navigate(`/review/${matchId}`, { state: { result, userId: myId, players } })}
+            className="btn-review"
+          >
+            📄 코드 비교하기
+          </button>
+          <button onClick={() => navigate('/lobby')} className="btn-primary">
+            🏠 로비로 돌아가기
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
