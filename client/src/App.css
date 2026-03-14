@@ -90,3 +90,8 @@ pre { font-family: 'Fira Code', monospace; }
 .editor-footer { padding: 12px 16px; background: #1a1a2e; border-top: 1px solid #2a2a3e; display: flex; justify-content: flex-end; align-items: center; }
 .submitted-msg { color: #3ba55c; font-weight: 600; }
 
+/* === 타이머 === */
+.timer { font-size: 24px; font-weight: 700; font-family: 'Fira Code', monospace; color: #e0e0e0; }
+.timer-urgent { color: #eb4034; animation: blink 0.5s step-end infinite; }
+@keyframes blink { 50% { opacity: 0.5; } }
+
