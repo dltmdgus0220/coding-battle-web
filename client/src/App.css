@@ -95,3 +95,11 @@ pre { font-family: 'Fira Code', monospace; }
 .timer-urgent { color: #eb4034; animation: blink 0.5s step-end infinite; }
 @keyframes blink { 50% { opacity: 0.5; } }
 
+/* === 상대방 상태 === */
+.opponent-status { display: flex; align-items: center; gap: 10px; }
+.opponent-name { font-size: 14px; color: #aaa; }
+.status-badge { font-size: 13px; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+.status-pending { background: #2a2a3e; color: #888; }
+.status-accepted { background: #1e3a2a; color: #3ba55c; }
+.status-wrong { background: #3a1e1e; color: #eb4034; }
+
