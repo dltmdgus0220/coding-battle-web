@@ -133,3 +133,15 @@ pre { font-family: 'Fira Code', monospace; }
 .result-vs { font-size: 20px; font-weight: 700; color: #666; }
 .result-actions { display: flex; flex-direction: column; gap: 10px; }
 
+/* === 코드 리뷰 === */
+.review-container { display: flex; flex-direction: column; height: 100vh; }
+.review-header { display: flex; align-items: center; gap: 16px; padding: 12px 20px; background: #1a1a2e; border-bottom: 1px solid #2a2a3e; }
+.review-header h2 { font-size: 18px; }
+.review-body { display: flex; flex: 1; overflow: hidden; }
+.review-panel { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #2a2a3e; }
+.review-panel:last-child { border-right: none; }
+.review-panel-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #1a1a2e; border-bottom: 1px solid #2a2a3e; }
+.review-panel-header h3 { font-size: 15px; }
+.judge-badge { font-size: 12px; padding: 3px 8px; border-radius: 10px; }
+.judge-badge.accepted { background: #1e3a2a; color: #3ba55c; }
+.judge-badge.wrong { background: #3a1e1e; color: #eb4034; }
