@@ -28,7 +28,7 @@ function formatTime(iso: string | null): string {
 }
 
 function statusLabel(status: string): string {
-  const map: Record<string, string> = {
+  const map: Record<string, string> = { // Record: 딕셔너리
     Accepted: '✅ 정답',
     'Wrong Answer': '❌ 오답',
     'Time Limit Exceeded': '⏱ 시간 초과',
