@@ -22,3 +22,7 @@ interface LocationState {
   };
 }
 
+function formatTime(iso: string | null): string {
+  if (!iso) return '-';
+  return new Date(iso).toLocaleTimeString('ko-KR'); // 예: "2025-03-20T13:45:00Z" -> "22:45:00" (한국 시간)
+}
