@@ -13,3 +13,18 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children; // 토큰이 있다면 원래 페이지 계속 보여줌.
 }
 
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/lobby" element={<RequireAuth><LobbyPage /></RequireAuth>} />
+        <Route path="/room/:roomId" element={<RequireAuth><RoomPage /></RequireAuth>} />
+        <Route path="/result/:matchId" element={<RequireAuth><ResultPage /></RequireAuth>} />
+        <Route path="/review/:matchId" element={<RequireAuth><CodeReviewPage /></RequireAuth>} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </BrowserRouter>
+  ); // URL과 컴포넌트 연결. path="*": 모든 잘못된 url을 login 페이지로 강제 이동.
+} // 로그인이 필요한 페이지만 RequireAuth로 감싸서 보호.
